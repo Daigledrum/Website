@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+  if (window.location.pathname === '/drummachines' || window.location.pathname === '/drummachines/') {
+    window.location.href = "https://www.martindrum.com/#drummachines";
+  }
+</script>
+  <title>Home | MartinDrum</title>
+
+  <style>
+    body {
+      font-family: silom, sans-serif;
+      margin: 0;
+      background: #f8f8f8;
+      color: #222;
+      text-align: justify;
+      padding: 5px 10px;
+      box-sizing: border-box;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+		position: sticky;
+  top: 0;
+  z-index: 1000; /* ensures it stays above content */
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .mainblack {
+      background-color: black;
+      width: 100%;
+      padding: 60px 0;
+    }
+
+    .performancesbg {
+      background-color: #DAFEE0;
+      width: 100%;
+      padding: 60px 0;
+    }
+	     .creationsbg {
+      background-color: #D6E4FF;
+      width: 100%;
+      padding: 60px 0;
+    }
+
+    .mainblack-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      color: white;
+    }
+
+    .mainblack-inner h1 {
+      text-align: left;
+
+    }
+@media (max-width: 671px) {
+  .mainblack-inner {
+    max-width: 100%;
+    padding: 0; /* remove horizontal padding so centering works */
+  }
+}
+
+    .mainblack h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      padding: 20px;
+    }
+
+    .intro {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      font-size: 1.05em;
+    }
+
+    footer {
+      margin-top: 60px;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    .hero-image {
+      display: block;
+      margin: 0 auto 40px;
+      max-width: 20%;
+      min-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+/* THE CONTAINERS FOR THE VIDEO SECTION */
+    .performances-content {
+      display: flex;
+      max-width: 90%;
+      margin: 0 auto;
+	 margin-bottom: 10px; /* space between videos */
+
+      background-color: #111;
+      border-radius: 10px;
+      overflow: hidden;
+      align-items: flex-start; /* text flush with top of video */
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .performances-content.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .performances-content img {
+      width: 40%;
+      object-fit: cover;
+      max-width: 620px;
+      border-radius: 8px;
+    }
+
+    .performances-content iframe {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    /* Text alignment for normal/reverse sections */
+    .performances-content .text {
+      width: 60%;
+      color: white;
+      padding: 0 10px;
+      text-align: left; /* default left */
+    }
+
+    .performances-content.reverse .text {
+      text-align: right; /* reversed sections right-aligned */
+    }
+	   @media (max-width : 1343px ){
+      .performances-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      .performances-content.reverse {
+        flex-direction: column; /* stacked vertical for reverse */
+      }
+
+      .performances-content img,
+      .performances-content iframe,
+      .performances-content .text {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .performances-content .text {
+        margin-top: 15px;
+        text-align: left; /* always left on mobile */
+      }
+    }
+
+	  /* THE CONTAINERS FOR THE MUSIC SECTION */
+/* Music section */
+.music-content {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #111;
+  border-radius: 10px;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+/* Make image and text equal width */
+.music-content .album-wrapper,
+.music-content .text {
+  flex: 1;
+}
+
+/* Album wrapper for hover effect */
+.album-wrapper {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+/* Album images */
+.album-wrapper img {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.album-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+/* Hover overlay text */
+.album-wrapper .hover-text {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 1.4em;
+  pointer-events: none;
+}
+
+.album-wrapper:hover .hover-text {
+  opacity: 1;
+}
+
+/* Text styling */
+.music-content .text {
+  color: white;
+  padding: 0 10px;
+  text-align: left;
+}
+
+/* Responsive: stack on smaller screens */
+@media (max-width: 1343px) {
+  .music-content {
+    flex-direction: column;
+    align-items: center; /* center items horizontally */
+    text-align: center;
+  }
+
+  .music-content .text {
+    width: 90%;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .album-wrapper {
+    width: 80%; /* limit wrapper width for centering */
+    max-width: 400px; /* optional max size */
+  }
+
+  .album-wrapper img {
+    width: 100%; /* image fills wrapper */
+  }
+}
+
+@media (max-width: 671px) {
+  .album-wrapper {
+    width: 90%; /* smaller screens */
+    max-width: 350px;
+  }
+}
+
+
+
+   
+    /* Music section */
+    #music h1,
+    #music h2 {
+      color: #FFFFFF;
+    }
+	  /* Reduce margin below album section titles */
+#music h2 {
+  margin-bottom: 10px; /* or whatever smaller spacing you like */
+  padding: 0; /* remove extra padding if needed */
+}
+
+
+    /* Video section */
+    #performances .performances-content {
+      background-color: black;
+      border-radius: 10px;
+      gap: 20px;
+      padding: 20px;
+    }  
+	  /* Music section */
+    #performances h1,
+    #performances h2 {
+      color: #000000;
+    }
+	  #creations h1 {
+  color: black; /* or any color you want */
+}
+
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>martindrum</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#music">Music</a>
+      <a href="#performances">performances</a>
+		<a href="#creations">creations</a>
+      <a href="#contact.html">contact</a>
+    </nav>
+  </header>
+
+  <img class="hero-image" src="IMG_8195.jpeg" alt="Hero Image">
+
+  <main id="about">
+    <h2>About</h2>
+    <p class="intro">
+      Performer, Composer, and more.
+    </p>
+    <p>The 2022 winner of Music NB’s Innovator of the Year Award and recipient of the prestigious Armand Bombardier Scholarship from SSHRC, Martin Daigle is a compelling voice in the performance arts. Emerging from creative foundations as a drummer and percussionist, his work as a performer, composer, and researcher pushes the boundaries of audio-visual and electroacoustic art. Martin’s innovative approach to performance highlights the integration of electronic devices, most notably through his development of an augmented drum kit, which was the focus of his doctoral degree, completed in 2025.</p>
+ <p>Martin’s artistry spans genres including rock, jazz, and classical percussion. He has performed at festivals such as Festival de Jazz de Montréal, Festival d’Été de Québec, Festival des Musiques de Création, Performing Media Festival, Open Ears Festival, Acadie Rock, and many more.</p>
+ <p>In 2021, he released his debut solo album, Mossy Cobblestone. His follow-up album, Drum Machines (2023), further explores technological innovation in percussion performance, solidifying his reputation as a forward-thinking artist in contemporary music.
+</p>
+  </main>
+
+  <section class="mainblack" id="music">
+    <div class="mainblack-inner">
+      <h1>Music</h1>
+      <h2 id="drummachines">DRUM MACHINES</h2>
+      <div class="music-content">
+		  <div class="album-wrapper">
+			      <a href="https://martindrum.bandcamp.com/album/drum-machines" target="_blank" rel="noopener">
+
+        <img src="DrumMachines_Cover_011222.jpg" alt="Drum Machines">
+			  <span class="hover-text">Proceed to the Bandcamp album page</span>
+					    </a>
+</div>
+        <div class="text">
+          <p>Drum Machines skillfully uncovers the melodic potential of the drumset, a release from Ravello Records featuring works by composers Pierre Alexandre Tremblay and Sylvain Pohu.</p>
+
+<p>Created in partnership with Sylvain Pohu, Pierre Alexandre Tremblay, Carolina Rodriguez Escobar, Thierry Gauthier, and Olivier Bochenek.</p>
+
+<p>Funded by the Canada Council for the Arts, MusicNB, and GNB.</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+
+      <h2>Mossy Cobblestone</h2>
+      <div class="music-content">
+		   <div class="album-wrapper">
+			       <a href="https://martindrum.bandcamp.com/album/mossy-cobblestone" target="_blank" rel="noopener">
+
+        <img src="Mossy Cobblestone Front.jpg" alt="Mossy Cobblestone">
+			 <span class="hover-text">Proceed to the Bandcamp album page</span>  	
+			     </a>
+		  </div> 
+        <div class="text">
+          <p>This album is dedicated to the memory of Eleanor Stubley, with heartfelt thanks to her family, who honor her legacy through a recording grant. Omar Miranda and I were recipients of this award in 2019, and we are deeply grateful for the opportunity it provided to realize this project together as Miranda. We sincerely thank the Stubley family for their support of this artistic endeavor.</p> <p>I would like to thank Fabrice Marandola, Ben Reimer, John Hollenbeck, Jim Doxas, Michel Deschênes, and loved ones for their guidance and support.</p> <p>Omar would like to thank Pilar Miranda, Ricardo Morejón, Carolina Rodríguez, Renato Arias, and La Bulla Producciones EC.</p> <p>Special thanks to Brigid Lucey, who is featured on Karakurenai, and to Jason Noble for his arrangement of the piece. We also extend our thanks to composers Andy Akiho, Casey Cangelosi, Glenn Kotche, and Benjamin Findley, and we are grateful to visual artist Marcel Leblanc for the album artwork.</p> <p>Tracks 6 and 7 are mixed in immersive audio, designed for headphone listening.</p>
+			<p>Funded by MusicNB, GNB</p>
+        </div>
+			   
+      </div>
+    </div>
+  </section>
+
+  <section class="mainblack" id="performances">
+    <div class="performancesbg">
+      <div class="mainblack-inner">
+        <h1>performances</h1>
+        
+        <div class="performances-content">
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/LljrA49i1HY?si=GCFYdXlyhv8oRNFS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="text">
+           <p><strong>Work Work WORK!!</strong>, by Federico Isasti</p>
+<p>Solo for drum kit and projected text.</p>
+<p>This piece is an expression of a digression inhabiting the artist, reflecting the many pressures and influences they face in daily life.</p>
+
+			  
+          </div>
+        </div>
+
+        <!-- Second video: reversed -->
+        <div class="performances-content reverse">
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/2KXqug8V1JM?si=nnMJSHoD7drmKSZd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="text">
+            <p><strong>beat</strong>, by Sylvain Pohu</p>
+			  
+          </div>
+			
+        </div>
+		   <div class="performances-content">
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/o4Hra6BLAQM?si=xxwcbDuaqaNOcWk5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="text">
+           <p><strong>La rage </strong>, by PA Tremblay</p>
+<p>Solo for drum kit and electronics</p>
+<p>This piece is an expression of a digression inhabiting the artist, reflecting the many pressures and influences they face in daily life.</p>
+
+        <!-- Third video: video left, text right -->
+       
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+<section class="mainblack" id="creations">
+    <div class="creationsbg">
+      <div class="mainblack-inner">
+        <h1>creations</h1>
+        
+        <!-- First video: video left, text right -->
+        <div class="performances-content">
+          <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+          <div class="text">
+			  
+           <p><strong>QuartetEmulator</strong>, by Martin Daigle</p>
+<p>An experimental game piece performed by Miguel Dumaine, Monica Ouellette, Jérémie Poitras, and Martin Daigle at Salle Bernard Leblanc, Moncton, NB.</p>
+<p>This composition features aleatory processes, random role assignments, and can be performed indefinitely with any combination of instruments.</p>
+
+			  
+          </div>
+        </div>
+
+        <!-- Second video: reversed -->
+        <div class="performances-content reverse">
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/R2hkt7fWHOo?si=-oj4LNeRls04WpEw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="text">
+            <p><strong><bold>SextetEmulator,</bold></strong> by Martin Daigle</p>
+<p>Experimental game piece, performed by Sixtrum at Desautels Concert Hall, University of Manitoba.</p>
+<p>This composition features aleatory processes, random role assignments, and can be performed indefinitely with any combination of instruments.</p>
+
+          </div>
+        </div>
+
+        <!-- Third video: video left, text right -->
+        <div class="performances-content">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ffoCv55RgHI?si=Q5QxHXa9hvtfGLY7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="text">
+           <p><strong>La grosse game, </strong>by Martin Daigle</p>
+<p>Solo for drum kit and projected text, performed by Martin Daigle.</p>
+<p>This piece is an expression of a digression inhabiting the artist, reflecting the many pressures and influences they face in daily life.</p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2025 MartinDrum</p>
+  </footer>
+</body>
+</html>
