@@ -5,50 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | MartinDrum</title>
   <style>
+    /* BASE STYLES */
     body {
       font-family: silom, sans-serif;
       margin: 0;
       background: #f8f8f8;
       color: #222;
-      padding: 5px 10px;
+      text-align: justify;
       box-sizing: border-box;
     }
 
-    header {
-      background: #111;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+  header {
+  background: #111;
+  color: white;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-      font-weight: bold;
-    }
+  display: flex;            /* enable flexbox */
+  flex-direction: column;   /* stack h1 and nav vertically */
+  align-items: center;      /* center content horizontally */
+}
+
+header h1 {
+  margin: 0;                /* remove default margin */
+  text-transform: lowercase; /* optional, to match your site style */
+}
+
+nav {
+  margin-top: 10px;         /* space between h1 and nav */
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
 
     main {
-      max-width: 800px;
+      max-width: 1100px;
       margin: 40px auto;
       padding: 0 20px;
     }
 
     h1, h2 {
-      text-align: center;
-      margin-bottom: 20px;
+      text-align: left;
+      margin-top: 0;
+      padding: 0 20px; /* horizontal padding like main page */
     }
 
+    .intro, .left-content p {
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto 20px;
+      font-size: 1.05em;
+    }
+
+    /* CONTACT FORM */
     .contact-form {
       background-color: #111;
       color: white;
       padding: 40px 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      opacity: 1;
+      max-width: 700px;
+      margin: 20px auto;
       transition: opacity 0.6s ease;
     }
 
@@ -107,6 +131,10 @@
     }
 
     @media (max-width: 671px) {
+      main {
+        padding: 0 10px;
+      }
+
       .contact-form {
         padding: 20px 10px;
       }
@@ -126,8 +154,10 @@
   </header>
 
   <main>
-    <h1>Contact</h1>
-    <p style="text-align:center;">Feel free to reach out for collaborations, inquiries, or messages.</p>
+    <div class="left-content">
+      <h1>Contact</h1>
+      <p>Feel free to reach out for collaborations, inquiries, or messages.</p>
+    </div>
 
     <form class="contact-form" id="contactForm" action="https://formspree.io/f/maqwyewy" method="POST">
       <label for="name">Name</label>
@@ -156,23 +186,20 @@
     const thankYou = document.getElementById('thankYouMsg');
 
     form.addEventListener('submit', function(e) {
-      e.preventDefault(); // Prevent default form submission
+      e.preventDefault();
       const formData = new FormData(form);
 
       fetch(form.action, {
         method: 'POST',
         body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+        headers: { 'Accept': 'application/json' }
       }).then(response => {
         if (response.ok) {
-          // Fade out the form
           form.style.opacity = '0';
           setTimeout(() => {
             form.style.display = 'none';
             thankYou.style.display = 'block';
-          }, 600); // Match transition duration
+          }, 600);
         } else {
           alert('Oops! There was a problem submitting your form.');
         }
