@@ -31,21 +31,32 @@
     }
 
     header {
-      background: #111;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+  background: #111;
+  color: white;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+		
+  z-index: 1000;
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-      font-weight: bold;
+  display: flex;            /* enable flexbox */
+  flex-direction: column;   /* stack h1 and nav vertically */
+  align-items: center;      /* center content horizontally */
     }
+header h1 {
+  margin: 0;                /* remove default margin */
+	text-transform: lowercase; /* optional, to match your site style */}
+	  
+    nav {
+  margin-top: 10px;         /* space between h1 and nav */
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
+}
 
     main {
       max-width: 1100px;
@@ -226,7 +237,7 @@
   padding: 0 20px;
 }
 section h1 {
-  padding: 0 20px; /* top/bottom: 0, left/right: 20px */
+  padding: 20px10px; /* top/bottom: 0, left/right: 20px */
 }
 }
   </style>
@@ -248,7 +259,7 @@ section h1 {
 
 
 	  <main id="about" > 
-    <h1 >about </h1>
+    <h1>about </h1>
     <p class="intro">
       Performer, Composer, and more.
     </p>
@@ -352,7 +363,7 @@ section h1 {
           
 			 
            <p><strong>QuartetEmulator,</strong> by Martin Daigle</p>
-<p>An experimental game piece performed by Miguel Dumaine, Monica Ouellette, Jérémie Poitras, and Martin Daigle at Salle Bernard Leblanc, Moncton, NB.</p>
+<p>An experimental game piece performed by Miguel Dumaine, Monica Ouellette, Jeremie Poitras, and Martin Daigle at Salle Bernard Leblanc, Moncton, NB.</p>
 <p>This composition features aleatory processes, random role assignments, and can be performed indefinitely with any combination of instruments.</p>
 
 			  
