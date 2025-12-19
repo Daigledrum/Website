@@ -14,43 +14,67 @@
 	
   <title>Home | MartinDrum</title>
 
-  <style>
-    /* ✅ FIX FOR STICKY HEADER + ANCHORS */
-    #about,
-    #music,
-    #performances,
-    #creations {
-      scroll-margin-top: 80px;
-    }
-    
-    body {
-      font-family: silom, sans-serif;
-      margin: 0;
-      background: #f8f8f8;
-      color: #222;
-      text-align: justify;
-      box-sizing: border-box;
-    }
+ <style>
+/* ===========================
+   1. Base Styles & Resets
+   =========================== */
+* {
+  box-sizing: border-box;
+}
 
-    header {
+body {
+  font-family: "Silom", sans-serif;
+  margin: 0;
+  background: #f8f8f8;
+  color: #222;
+  text-align: justify;
+}
+
+#about,
+#music,
+#performances,
+#creations {
+  scroll-margin-top: 80px; /* fix sticky header + anchors */
+}
+
+/* ===========================
+   2. Font Face
+   =========================== */
+@font-face {
+  font-family: "Silom";
+  src: url("fonts/SilomBol.woff2") format("woff2"),
+       url("fonts/SilomBol.woff") format("woff"),
+       url("fonts/SilomBol.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ===========================
+   3. Header & Navigation
+   =========================== */
+header {
   background: #111;
   color: white;
   padding: 20px;
   position: sticky;
   top: 0;
-		
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  display: flex;            /* enable flexbox */
-  flex-direction: column;   /* stack h1 and nav vertically */
-  align-items: center;      /* center content horizontally */
-    }
 header h1 {
-  margin: 0;                /* remove default margin */
-	text-transform: lowercase; /* optional, to match your site style */}
-	  
-    nav {
-  margin-top: 10px;         /* space between h1 and nav */
+  margin: 0;
+  text-transform: lowercase;
+}
+
+nav {
+  display: flex;
+  justify-content: center; /* center the menu */
+  flex-wrap: nowrap;       /* keep on one line */
+  max-width: 100%;
+  overflow: hidden;        /* prevent scrollbars */
 }
 
 nav a {
@@ -58,87 +82,118 @@ nav a {
   text-decoration: none;
   margin: 0 10px;
   font-weight: bold;
+  flex: 1 1 auto;       /* allow links to shrink proportionally */
+  text-align: center;
+  min-width: 0;          /* allows flex items to shrink below content size */
 }
 
-    main {
-      max-width: 1100px;
-      margin: 0px auto 0;
-      padding: 60px 20px;
-    }
+/* Shrink text progressively for small screens */
+@media (max-width: 480px) {
+  nav a {
+    font-size: 0.9em;
+    margin: 0 6px;
+  }
+}
+
+@media (max-width: 400px) {
+  nav a {
+    font-size: 0.8em;
+    margin: 0 4px;
+  }
+}
+
+@media (max-width: 300px) {
+  nav a {
+    font-size: 0.7em;
+    margin: 0 2px;
+  }
+}
 
 
-    .mainblack {
-      background-color: black;
-      width: 100%;
-      padding: 60px 0;
-    }
+/* ===========================
+   4. Main Content
+   =========================== */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
 
-    .performancesbg {
-      background-color: #DAFEE0;
-      width: 100%;
-      padding: 60px 0;
-    }
+section h1 {
+  padding: 20px;
+}
 
-    .creationsbg {
-      background-color: #D6E4FF;
-      width: 100%;
-      padding: 60px 0;
-    }
+h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  padding: 20px;
+}
 
-    .mainblack-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
-      color: white;
-    }
+.intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  font-size: 1.05em;
+}
 
-    .mainblack-inner h1 {
-      text-align: left;
-      margin-top: 0;
-    }
+/* ===========================
+   5. Section Backgrounds
+   =========================== */
+.mainblack {
+  background-color: black;
+  width: 100%;
+  padding: 60px 0;
+}
 
-    @media (max-width: 671px) {
-      .mainblack-inner {
-        max-width: 100%;
-        padding: 0;
-      }
-    }
+.performancesbg {
+  background-color: #DAFEE0;
+  width: 100%;
+  padding: 60px 0;
+}
 
-    h2 {
-      text-align: center;
-      margin-bottom: 10px;
-      padding: 20px;
-    }
+.creationsbg {
+  background-color: #D6E4FF;
+  width: 100%;
+  padding: 60px 0;
+}
 
-    .intro {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 40px;
-      font-size: 1.05em;
-    }
+.mainblack-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  color: white;
+}
 
-    footer {
-      margin-top: 60px;
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-    }
+.mainblack-inner h1 {
+  text-align: left;
+  margin-top: 0;
+}
 
-    .hero-image {
-      display: block;
-      margin: 0 auto;
-      max-width: 20%;
-      min-width: 100%;
-      height: auto;
-      border-radius: 0px;
-    }
+@media (max-width: 671px) {
+  .mainblack-inner {
+    max-width: 100%;
+    padding: 0;
+  }
+}
 
-    /* VIDEO SECTIONS */
-    .performances-content {
+/* ===========================
+   6. Images
+   =========================== */
+.hero-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 20%;
+  min-width: 100%;
+  height: auto;
+  border-radius: 0;
+}
+
+/* ===========================
+   7. Performances / Videos
+   =========================== */
+.performances-content {
   display: flex;
-  max-width: 1100px;   /* ← change from 700px */
+  max-width: 1100px;
   margin: 0 auto 10px;
   background-color: #111;
   border-radius: 10px;
@@ -147,104 +202,133 @@ nav a {
   align-items: flex-start;
 }
 
-    .performances-content.reverse {
-      flex-direction: row-reverse;
-    }
-	  .performances-content.reverse .text {
-  text-align: right; /* aligns text right in reverse sections */
+.performances-content.reverse {
+  flex-direction: row-reverse;
 }
 
-    .performances-content iframe,
+.performances-content.reverse .text {
+  text-align: right;
+}
+
+.performances-content iframe,
 .performances-content .text {
-	flex: 1 1 0;}
-
-    .performances-content .text {
-      width: 100%;
-      color: white;
-      padding: 0 10px;
-      text-align: left;
-    }
-
-    @media (max-width: 700px) {
-      .performances-content,
-      .performances-content.reverse {
-        flex-direction: column;
-      }
-
-      .performances-content .text {
-        width: 100%;
-        margin-top: 15px;
-      }
-    }
-
-    /* MUSIC SECTION */
-    .music-content {
-      display: flex;
-      gap: 20px;
-      padding: 20px;
-      background-color: #111;
-      border-radius: 10px;
-      max-width: 1100px;
-      margin: 0 auto 40px;
-    }
-
-    .music-content .album-wrapper,
-    .music-content .text {
-      flex: 1;
-    }
-
-    .album-wrapper {
-      position: relative;
-      cursor: pointer;
-    }
-
-    .album-wrapper img {
-      width: 100%;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
-    }
-
-    .album-wrapper:hover img {
-      transform: scale(1.05);
-    }
-
-    .album-wrapper .hover-text {
-      position: absolute;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.7);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    .album-wrapper:hover .hover-text {
-      opacity: 1;
-    }
-
-    #music h1,
-    #music h2 {
-      color: white;
-    }
-
-    #performances h1,
-    #performances h2,
-    #creations h1 {
-      color: black;
-    }
-	  /* Add horizontal padding to all h1 inside sections */
-	  #about p {
-  padding: 0 20px;
+  flex: 1 1 0;
 }
-section h1 {
-  padding: 20px10px; /* top/bottom: 0, left/right: 20px */
+
+.performances-content .text {
+  width: 100%;
+  color: white;
+  padding: 0 10px;
+  text-align: left;
 }
+
+@media (max-width: 700px) {
+  .performances-content,
+  .performances-content.reverse {
+    flex-direction: column;
+  }
+
+  .performances-content .text {
+    width: 100%;
+    margin-top: 15px;
+  }
 }
-  </style>
+
+/* ===========================
+   8. Music Section
+   =========================== */
+.music-content {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #111;
+  border-radius: 10px;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+}
+
+.music-content .album-wrapper,
+.music-content .text {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .music-content {
+    flex-direction: column;
+  }
+  .music-content .album-wrapper,
+  .music-content .text {
+    width: 100%;
+  }
+}
+
+/* ===========================
+   9. Album Wrapper & Hover
+   =========================== */
+.album-wrapper {
+  cursor: pointer;
+  position: relative;
+}
+
+.album-wrapper img {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.album-wrapper:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.15) contrast(1.05);
+}
+
+.album-wrapper .hover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  text-align: center;
+}
+
+.album-wrapper:hover .hover-text {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* ===========================
+   10. Section Colors
+   =========================== */
+#music h1,
+#music h2 {
+  color: white;
+}
+
+#performances h1,
+#performances h2,
+#creations h1 {
+  color: black;
+}
+
+/* ===========================
+   11. Footer
+   =========================== */
+footer {
+  margin-top: 60px;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+}
+</style>
+
 </head>
 
 <body>
@@ -255,7 +339,7 @@ section h1 {
       <a href="#music">music</a>
       <a href="#performances">performances</a>
 		<a href="#creations">creations</a>
-      <a href="contact">contact</a>
+      <a href="contact.html">contact</a>
     </nav>
   </header>
 
