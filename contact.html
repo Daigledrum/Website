@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Segoe UI";
   margin: 0;
   background: #f8f8f8;
   color: #222;
@@ -24,14 +24,8 @@ body {
 /* ===========================
    2. Font Face
    =========================== */
-@font-face {
-  font-family: "Silom";
-  src: url("fonts/SilomBol.woff2") format("woff2"),
-       url("fonts/SilomBol.woff") format("woff"),
-       url("fonts/SilomBol.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
+
+
 
 /* ===========================
    3. Header & Navigation
@@ -87,15 +81,17 @@ nav a {
    =========================== */
 main {
   max-width: 1100px;
-  margin: 20px auto;
-  padding: 60px 20px;
+  margin: 0 auto;      /* remove top/bottom spacing */
+  padding: 30px 20px;  /* smaller top/bottom padding */
 }
+
 
 h1, h2 {
   text-align: left;
-  margin-top: 10px;
-  padding: 10px 0;
+  margin: 5px 0;     /* smaller vertical margin */
+  padding: 0px 0;    /* smaller vertical padding */
 }
+
 
 .intro, .left-content p {
   text-align: left;
