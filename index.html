@@ -137,15 +137,15 @@ nav a {
 
     /* VIDEO SECTIONS */
     .performances-content {
-      display: flex;
-      max-width: 700px;
-      margin: 0 auto 10px;
-      background-color: #111;
-      border-radius: 10px;
-      gap: 20px;
-      padding: 20px;
-      align-items: flex-start;
-    }
+  display: flex;
+  max-width: 1100px;   /* ← change from 700px */
+  margin: 0 auto 10px;
+  background-color: #111;
+  border-radius: 10px;
+  gap: 20px;
+  padding: 20px;
+  align-items: flex-start;
+}
 
     .performances-content.reverse {
       flex-direction: row-reverse;
@@ -154,13 +154,12 @@ nav a {
   text-align: right; /* aligns text right in reverse sections */
 }
 
-    .performances-content iframe {
-      width: 100%;
-      border-radius: 8px;
-    }
+    .performances-content iframe,
+.performances-content .text {
+	flex: 1 1 0;}
 
     .performances-content .text {
-      width: 60%;
+      width: 100%;
       color: white;
       padding: 0 10px;
       text-align: left;
@@ -256,7 +255,7 @@ section h1 {
       <a href="#music">music</a>
       <a href="#performances">performances</a>
 		<a href="#creations">creations</a>
-      <a href="contact.html">contact</a>
+      <a href="contact">contact</a>
     </nav>
   </header>
 
