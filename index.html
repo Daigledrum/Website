@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script>
-  if (window.location.pathname.includes('drummachines')) {
-    window.location.href = "https://www.martindrum.com#drummachines";
+ <script>
+  const path = window.location.pathname.replace(/\/$/, ''); // remove trailing slash
+  if (path === '/drummachines') {
+    window.location.href = "https://www.martindrum.com/#drummachines";
   }
 </script>
+
 	
   <title>Home | MartinDrum</title>
 
