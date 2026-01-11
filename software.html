@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.cdnfonts.com/css/silkscreen" rel="stylesheet">
+<title>Interactive Image Points | MartinDrum</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ========= Base Styles =================== */
+* { box-sizing: border-box; }
+
+html {
+  margin: 0;
+  padding: 0;
+  background: #111;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f8f8;
+  color: #000;
+  text-align: center;
+}
+/* ===========================
+   2. Footer */
+footer {
+  margin-top: 60px;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+}
+/* ========= Header & Navigation =========== */
+header {
+  background: #111;
+  color: white;
+  padding: 20px 0 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+}
+
+header h1 {
+  margin: 0;
+  text-transform: lowercase;
+  line-height: 1;
+  font-family: 'Silkscreen', monospace;
+}
+
+header h1 a { color: inherit; text-decoration: none; display: inline-block; }
+
+.desktop-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.desktop-nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+/* ensure nav links use Inter */
+.desktop-nav a { font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+/* Mobile menu */
+.mobile-menu-icon {
+  display: none;
+  font-size: 1.1em;
+  background: #222;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(17,17,17,0.95);
+  z-index: 2000;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-nav-overlay a {
+  font-size: 1.5em;
+  color: white;
+  text-decoration: none;
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+@media (max-width: 400px) {
+  .desktop-nav { display: none; }
+  .mobile-menu-icon { display: block; }
+}
+
+/* ========= Main Content ================== */
+main {
+  padding: 40px 0;
+  max-width: 1400px;  /* increased to accommodate wider images side-by-side */
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  overflow-x: hidden; /* prevent horizontal overflow */
+}
+.images-wrapper {
+  display: flex;
+  justify-content: center;  /* center images as a group */
+  gap: 40px;
+  flex-wrap: wrap;        /* allow wrapping to new rows */
+  align-items: flex-start;  /* align tops */
+  width: 100%;
+  max-width: 100%;
+}
+
+.image-container {
+  flex: 0 1 auto;     /* don't force equal widths, let images determine size */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center content horizontally */
+  max-width: calc(50% - 20px); /* ensure containers don't exceed half width minus gap - max 2 per row */
+  min-width: 0;       /* allow flex item to shrink below content size */
+  width: 100%;        /* take available space but respect max-width */
+}
+
+.image-frame {
+  position: relative;
+  display: inline-block; /* shrink-wrap to image size */
+  max-width: 100%;       /* prevent frame from exceeding container */
+}
+
+.image-frame img {
+  height: 40vh;       /* default height - JavaScript will adjust for equal scaling */
+  width: auto;        /* maintain aspect ratio - width varies based on image */
+  max-width: 100%;   /* prevent overflow - scales down proportionally */
+  display: block;
+  object-fit: contain;
+}
+
+/* Medium screens - scale down images proportionally */
+@media (max-width: 1400px) {
+  .image-frame img {
+    height: 35vh;           /* slightly smaller on medium screens */
+  }
+}
+
+@media (max-width: 1200px) {
+  .image-frame img {
+    height: 30vh;           /* scale down further */
+  }
+}
+
+@media (max-width: 1000px) {
+  .image-frame img {
+    height: 25vh;           /* continue scaling down */
+  }
+}
+
+/* Small screens - stack vertically */
+@media (max-width: 900px) {
+  .images-wrapper {
+    flex-direction: column;  /* stack images */
+    flex-wrap: wrap;          /* allow wrapping if needed */
+    gap: 30px;
+    align-items: center;     /* center horizontally */
+  }
+
+  .image-container {
+    width: 100%;
+    max-width: 90vw;         /* prevent overflow on small screens */
+  }
+
+  .image-frame img {
+    /* height controlled by JavaScript for better responsiveness */
+    max-width: 100%;         /* ensure images don't overflow on small screens */
+  }
+}
+
+
+/* Points */
+.point {
+  position: absolute;
+  width: 5%;
+  min-width: 20px;
+  aspect-ratio: 1 / 1;
+  background-color: #FFB000;
+  color: black;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Info / GitHub link */
+.info {
+  margin-top: 8px;
+  font-size: 18px;
+  min-height: 60px;
+  width: 100%;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: center; /* center text relative to image */
+  box-sizing: border-box;
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* tighten gap so button sits slightly closer */
+  align-items: center; /* center button horizontally */
+}
+
+.info a {
+  color: #9C20C6;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 14px;
+  border: 2px solid #9C20C6;
+  border-radius: 8px;
+  display: inline-block;
+  transition: background 0.2s, color 0.2s;
+}
+
+.info a:hover {
+  background-color: #9C20C6;
+  color: white;
+}
+
+/* Footer */
+footer {
+  margin-top: 60px;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+}
+
+
+</style>
+</head>
+
+<body id="top">
+
+  <header>
+    <h1><a href="#top">martindrum</a></h1>
+
+    <nav class="desktop-nav">
+    <a href="index.html#about">about</a>
+    <a href="index.html#music">music</a>
+    <a href="index.html#performances">performances</a>
+    <a href="index.html#creations">creations</a>
+    <a href="software.html">software</a>
+    <a href="contact.html">contact</a>
+  </nav>
+
+  <div class="mobile-menu-icon" onclick="toggleMobileMenu()">Menu</div>
+
+  <div class="mobile-nav-overlay" id="mobileNav">
+    <a href="index.html#about" onclick="closeMobileMenu()">about</a>
+    <a href="index.html#music" onclick="closeMobileMenu()">music</a>
+    <a href="index.html#performances" onclick="closeMobileMenu()">performances</a>
+    <a href="index.html#creations" onclick="closeMobileMenu()">creations</a>
+    <a href="software.html" onclick="closeMobileMenu()">software</a>
+    <a href="contact.html" onclick="closeMobileMenu()">contact</a>
+  </div>
+</header>
+
+<main>
+  <h2>Hover over a number for more info</h2>
+
+  <div class="images-wrapper">
+
+    <!-- Clave Generator -->
+    <div class="image-container">
+      <div class="image-frame">
+        <img src="images/ClaveGenerator.png" alt="Clave Generator">
+
+        <div class="point" data-x="270" data-y="150" data-text="Time Signature: Syncs to the Ableton Live clock, or generates a polyrhythm when used alongside a different time signature in Live.">1</div>
+        <div class="point" data-x="430" data-y="150" data-text="Clave pattern selector">2</div>
+        <div class="point" data-x="280" data-y="200" data-text="Displace control">3</div>
+        <div class="point" data-x="170" data-y="280" data-text="Midi note and velocity">4</div>
+        <div class="point" data-x="180" data-y="350" data-text="Displace preview(0 1 1 0 1 0 1 0)">5</div>
+        <div class="point" data-x="500" data-y="300" data-text="Rhythm signalvisualizer">6</div>      </div>
+
+      <div class="info" data-download="https://github.com/Daigledrum/Clave-Generator"></div>
+    </div>
+
+    <!-- Oscillator -->
+    <div class="image-container">
+      <div class="image-frame">
+        <img src="images/OscillatorMetronome.png" alt="Oscillator Metronome">
+
+        <div class="point" data-x="440" data-y="110" data-text="Turn the device on or off">1</div>
+        <div class="point" data-x="20" data-y="230" data-text="Speed of the oscillation between the two BPM values">2</div>
+        <div class="point" data-x="210" data-y="230" data-text="Set the high and low BPM targets">3</div>
+        <div class="point" data-x="400" data-y="230" data-text="Graphical interface showing the signal moving between the low and high BPM values">4</div>
+      </div>
+
+      <div class="info" data-download="https://github.com/Daigledrum/Oscillator-Metronome"></div>
+    </div>
+
+    <!-- Lefty Keyboard -->
+    <div class="image-container">
+      <div class="image-frame">
+        <img src="images/LeftyKeyboard.png" alt="Lefty Keyboard">
+
+        <div class="point" data-x="220" data-y="240" data-text="Keyboard flips symmetrically around D.">1</div>
+        <div class="point" data-x="476" data-y="155" data-text="MIDI monitor showing incoming and outgoingnotes.">2</div>
+        <div class="point" data-x="100" data-y="335" data-text="While attending the Siena Jazz Symposium, I attended a presentation by Francesca Naebow that challenged improvising musicians to play their instruments flipped upside down. While flipping a grand piano seemed impossible, the idea could be realized easily with a MIDI keyboard. This experiment became the origin story of the device.">3</div>
+      </div>
+
+      <div class="info" data-download="https://github.com/Daigledrum/Lefty-Keyboard"></div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+function toggleMobileMenu() {
+  const mobileNav = document.getElementById('mobileNav');
+  mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function closeMobileMenu() {
+  document.getElementById('mobileNav').style.display = 'none';
+}
+
+// Function to scale images equally based on available width
+function scaleImagesEqually() {
+  const imagesWrapper = document.querySelector('.images-wrapper');
+  const images = document.querySelectorAll('.image-frame img');
+  
+  if (images.length < 1) return;
+  
+  // Check if all images are loaded
+  const allLoaded = Array.from(images).every(img => img.complete && img.naturalWidth > 0);
+  if (!allLoaded) return;
+  
+  // Detect if images are stacked vertically (check window width and computed style)
+  const isStacked = window.innerWidth <= 900 || 
+                    window.getComputedStyle(imagesWrapper).flexDirection === 'column';
+  
+  // Get available width (accounting for padding)
+  const wrapper = imagesWrapper.parentElement;
+  const availableWidth = wrapper.offsetWidth - 40; // subtract padding
+  
+  let maxImageWidth;
+  let baseHeight;
+  
+  if (isStacked) {
+    // When stacked vertically, use full width and larger height
+    maxImageWidth = availableWidth * 0.9; // 90% of available width
+    baseHeight = 50 * window.innerHeight / 100; // 50vh for stacked images
+  } else {
+    // When side-by-side, max 2 images per row
+    const gap = 40;
+    const imagesPerRow = Math.min(images.length, 2); // Max 2 images per row
+    maxImageWidth = (availableWidth - (gap * (imagesPerRow - 1))) / imagesPerRow;
+    baseHeight = 40 * window.innerHeight / 100; // 40vh for side-by-side
+  }
+  
+  // Calculate the maximum height that fits both images
+  let maxHeight = baseHeight;
+  
+  images.forEach(img => {
+    if (img.naturalWidth && img.naturalHeight) {
+      const aspectRatio = img.naturalWidth / img.naturalHeight;
+      const widthAtHeight = maxHeight * aspectRatio;
+      
+      // If image would be too wide, reduce height
+      if (widthAtHeight > maxImageWidth) {
+        maxHeight = maxImageWidth / aspectRatio;
+      }
+    }
+  });
+  
+  // Apply the same height to all images (ensures equal scaling)
+  images.forEach(img => {
+    img.style.height = maxHeight + 'px';
+  });
+}
+
+// Debounce function to limit rapid resize calls
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Function to update points for a specific container
+function updatePointsForContainer(container) {
+  const img = container.querySelector('img');
+  const points = container.querySelectorAll('.point');
+  
+  if (!img || !points.length) return;
+
+  const rect = img.getBoundingClientRect();
+  const naturalW = img.naturalWidth || rect.width;
+  const naturalH = img.naturalHeight || rect.height;
+
+  points.forEach(pt => {
+    const x = Number(pt.getAttribute('data-x')) || 0;
+    const y = Number(pt.getAttribute('data-y')) || 0;
+    const px = (x / naturalW) * img.clientWidth;
+    const py = (y / naturalH) * img.clientHeight;
+    pt.style.left = px + 'px';
+    pt.style.top = py + 'px';
+  });
+}
+
+function updateAllPoints() {
+  document.querySelectorAll('.image-container').forEach(updatePointsForContainer);
+}
+
+window.addEventListener('load', () => {
+  scaleImagesEqually();
+  updateAllPoints();
+});
+
+window.addEventListener('resize', debounce(() => {
+  scaleImagesEqually();
+  updateAllPoints();
+}, 120));
+
+// -------------------------
+// Point interactions / info
+// -------------------------
+function escapeHTML(str){
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showInfoForPoint(point){
+  const container = point.closest('.image-container');
+  if(!container) return;
+  const info = container.querySelector('.info');
+  if(!info) return;
+  const text = point.getAttribute('data-text') || '';
+  // On hover/focus show only the descriptive text (hide the default download button)
+  info.innerHTML = '<div>' + escapeHTML(text) + '</div>';
+  info.dataset.visible = '1';
+}
+
+function clearInfoForPoint(point){
+  const container = point.closest('.image-container');
+  if(!container) return;
+  const info = container.querySelector('.info');
+  if(!info) return;
+  // restore default state (download button if available)
+  const download = info.getAttribute('data-download') || '';
+  if(download){
+    info.innerHTML = '<div><a href="' + escapeHTML(download) + '" target="_blank" rel="noopener noreferrer">Download</a></div>';
+    info.dataset.visible = '0';
+  } else {
+    info.innerHTML = '';
+    info.dataset.visible = '0';
+  }
+}
+
+function setupPointInteractions(){
+  document.querySelectorAll('.point').forEach(pt => {
+    pt.setAttribute('tabindex','0');
+    pt.addEventListener('mouseenter', () => showInfoForPoint(pt));
+    pt.addEventListener('mouseleave', () => clearInfoForPoint(pt));
+    pt.addEventListener('focus', () => showInfoForPoint(pt));
+    pt.addEventListener('blur', () => clearInfoForPoint(pt));
+    pt.addEventListener('click', (e) => {
+      // on small screens, toggle info on tap
+      if(window.innerWidth <= 900){
+        const container = pt.closest('.image-container');
+        const info = container && container.querySelector('.info');
+        if(!info) return;
+        if(info.dataset.visible === '1'){
+          clearInfoForPoint(pt);
+        } else {
+          showInfoForPoint(pt);
+        }
+      }
+    });
+  });
+}
+
+window.addEventListener('load', () => {
+  setupPointInteractions();
+  // initialize info boxes with download links by default
+  document.querySelectorAll('.info').forEach(info => {
+    const download = info.getAttribute('data-download') || '';
+    if(download){
+      info.innerHTML = '<div><a href="' + escapeHTML(download) + '" target="_blank" rel="noopener noreferrer">Download</a></div>';
+      info.dataset.visible = '0';
+    }
+  });
+});
+
+</script>
+  <footer>
+    <p>&copy; 2026 MartinDrum</p>
+  </footer>
+</body>
+</html>

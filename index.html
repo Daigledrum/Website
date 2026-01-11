@@ -14,6 +14,9 @@
 	
   <title>Home | MartinDrum</title>
 
+  <link href="https://fonts.cdnfonts.com/css/silkscreen" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
  <style>
 /* ===========================
    1. Base Styles & Resets
@@ -22,9 +25,16 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Segoe UI";
+html {
   margin: 0;
+  padding: 0;
+  background: #111;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   background: #f8f8f8;
   color: #222;
   text-align: justify;
@@ -37,64 +47,95 @@ body {
   scroll-margin-top: 80px; /* fix sticky header + anchors */
 }
 
+/* Ensure headings with fragment IDs receive the same offset */
+h1[id], h2[id] {
+  scroll-margin-top: 80px;
+}
+
 /* ===========================
    3. Header & Navigation
    =========================== */
 header {
   background: #111;
   color: white;
-  padding: 20px;
+  padding: 20px 0 10px;
   position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0;
+  width: 100%;
 }
 
 header h1 {
   margin: 0;
   text-transform: lowercase;
+  line-height: 1;
+  font-family: 'Silkscreen', monospace;
 }
 
-nav {
+header h1 a { color: inherit; text-decoration: none; display: inline-block; }
+
+/* Use Silkscreen for page headings (not nav links) */
+h1, h2 {
+  font-family: 'Silkscreen', monospace;
+}
+
+/* Music track titles should use Inter */
+.music-title {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 600;
+}
+
+.desktop-nav {
   display: flex;
-  justify-content: center; /* center the menu */
-  flex-wrap: nowrap;       /* keep on one line */
-  max-width: 100%;
-  overflow: hidden;        /* prevent scrollbars */
+  justify-content: center;
+  margin-top: 5px;
 }
 
-nav a {
+.desktop-nav a {
   color: white;
   text-decoration: none;
   margin: 0 10px;
   font-weight: bold;
-  flex: 1 1 auto;       /* allow links to shrink proportionally */
-  text-align: center;
-  min-width: 0;          /* allows flex items to shrink below content size */
 }
 
-/* Shrink text progressively for small screens */
-@media (max-width: 480px) {
-  nav a {
-    font-size: 0.9em;
-    margin: 0 6px;
-  }
+/* Mobile menu */
+.mobile-menu-icon {
+  display: none;
+  font-size: 1.1em;
+  background: #222;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(17,17,17,0.95);
+  z-index: 2000;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-nav-overlay a {
+  font-size: 1.5em;
+  color: white;
+  text-decoration: none;
+  margin: 15px 0;
+  font-weight: bold;
 }
 
 @media (max-width: 400px) {
-  nav a {
-    font-size: 0.8em;
-    margin: 0 4px;
-  }
-}
-
-@media (max-width: 300px) {
-  nav a {
-    font-size: 0.7em;
-    margin: 0 2px;
-  }
+  .desktop-nav { display: none; }
+  .mobile-menu-icon { display: block; }
 }
 
 
@@ -152,15 +193,31 @@ h2 {
   color: white;
 }
 
-.mainblack-inner h1 {
+/* Inner wrapper for main (about) to match other sections */
+.main-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.main-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px; /* restore horizontal padding */
+}
+.main-inner h1 {
   text-align: left;
   margin-top: 0;
+  padding: 20px 0 0 0; /* restore top spacing so `about` aligns vertically */
 }
 
 @media (max-width: 671px) {
   .mainblack-inner {
     max-width: 100%;
-    padding: 0;
+    padding: 0 20px;
+  }
+  .main-inner {
+    padding: 0 20px;
   }
 }
 
@@ -218,9 +275,21 @@ h2 {
     flex-direction: column;
   }
 
+  .performances-content,
+  .performances-content.reverse {
+    gap: 6px; /* reduce vertical spacing when stacked */
+    padding: 10px; /* tighten container padding on small screens */
+  }
+
   .performances-content .text {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 0; /* spacing handled by gap on the flex container */
+    padding: 0 6px; /* tighter horizontal padding for text */
+  }
+
+  /* When stacked on small screens, ensure any reversed blocks are left-aligned */
+  .performances-content.reverse .text {
+    text-align: left;
   }
 	/* Make iframes responsive within their flex containers */
 .performances-content iframe {
@@ -304,14 +373,15 @@ h2 {
 /* ===========================
    10. Section Colors
    =========================== */
-#music h1,
+/* Section heading colors (target headings that carry the IDs) */
+#music,
 #music h2 {
   color: white;
 }
 
-#performances h1,
+#performances,
 #performances h2,
-#creations h1 {
+#creations {
   color: black;
 }
 
@@ -330,23 +400,36 @@ footer {
 
 </head>
 
-<body>
+<body id="top">
   <header>
-    <h1>martindrum</h1>
-    <nav>
+    <h1><a href="#top">martindrum</a></h1>
+
+    <nav class="desktop-nav">
       <a href="#about">about</a>
       <a href="#music">music</a>
       <a href="#performances">performances</a>
-		<a href="#creations">creations</a>
+      <a href="#creations">creations</a>
+      <a href="software.html">software</a>
       <a href="contact.html">contact</a>
     </nav>
+
+    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">Menu</div>
+
+    <div class="mobile-nav-overlay" id="mobileNav">
+      <a href="#about" onclick="closeMobileMenu()">about</a>
+      <a href="#music" onclick="closeMobileMenu()">music</a>
+      <a href="#performances" onclick="closeMobileMenu()">performances</a>
+      <a href="#creations" onclick="closeMobileMenu()">creations</a>
+      <a href="software.html" onclick="closeMobileMenu()">software</a>
+      <a href="contact.html" onclick="closeMobileMenu()">contact</a>
+    </div>
   </header>
 
   <img class="hero-image" src="IMG_8195.jpeg" alt="Hero Image">
 
-
-	  <main id="about" > 
-    <h1>about </h1>
+      <main>
+    <div class="main-inner">
+    <h1 id="about">about </h1>
     <p class="intro">
       Performer, Composer, and more.
     </p>
@@ -354,12 +437,13 @@ footer {
  <p>Martin’s artistry spans genres including rock, jazz, and classical percussion. He has performed at festivals such as Festival de Jazz de Montreal, Festival d’ete de Quebec, Festival des Musiques de Creation, Performing Media Festival, Open Ears Festival, Acadie Rock, and many more.</p>
  <p>In 2021, he released his debut solo album, Mossy Cobblestone. His follow-up album, Drum Machines (2023), further explores technological innovation in percussion performance, solidifying his reputation as a forward-thinking artist in contemporary music.
 </p>
+  </div>
   </main>
 
-  <section class="mainblack" id="music">
+  <section class="mainblack">
     <div class="mainblack-inner" >
-      <h1>music</h1>
-      <h2 id="drummachines">Drum Machines</h2>
+      <h1 id="music">music</h1>
+      <h2 id="drummachines" class="music-title">DRUM MACHINES</h2>
       <div class="music-content">
 		  <div class="album-wrapper">
 			      <a href="https://martindrum.bandcamp.com/album/drum-machines" target="_blank" rel="noopener">
@@ -379,7 +463,7 @@ footer {
         </div>
       </div>
 
-      <h2>Mossy Cobblestone</h2>
+      <h2 class="music-title">MOSSY COBBLESTONE</h2>
       <div class="music-content">
 		   <div class="album-wrapper">
 			       <a href="https://martindrum.bandcamp.com/album/mossy-cobblestone" target="_blank" rel="noopener">
@@ -397,10 +481,10 @@ footer {
     </div>
   </section>
 
-  <section id="performances">
+  <section>
     <div class="performancesbg" >
       <div class="mainblack-inner">
-        <h1>performances</h1>
+        <h1 id="performances">performances</h1>
         
         <div class="performances-content">
          <iframe width="560" height="315" src="https://www.youtube.com/embed/LljrA49i1HY?si=GCFYdXlyhv8oRNFS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -438,10 +522,10 @@ footer {
       </div>
     </div>
   </section>
-<section id="creations" >
+<section>
     <div class="creationsbg" >
       <div class="mainblack-inner">
-        <h1>creations</h1>
+        <h1 id="creations">creations</h1>
         
         <!-- First video: video left, text right -->
         <div class="performances-content">
@@ -486,8 +570,19 @@ footer {
     </div>
   </section>
   <footer>
-    <p>&copy; 2025 MartinDrum</p>
+    <p>&copy; 2026 MartinDrum</p>
   </footer>
+
+<script>
+function toggleMobileMenu() {
+  const mobileNav = document.getElementById('mobileNav');
+  mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function closeMobileMenu() {
+  document.getElementById('mobileNav').style.display = 'none';
+}
+</script>
 </body>
 </html>
 

@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  const path = window.location.pathname.replace(/\/$/, '');
+  if (path === '/drummachines') {
+    window.location.replace('/#drummachines');
+  }
+</script>
+  <link href="https://fonts.cdnfonts.com/css/silkscreen" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <title>Contact | MartinDrum</title>
 
   <style>
@@ -13,19 +21,44 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Segoe UI";
+html {
   margin: 0;
+  padding: 0;
+  background: #111;
+  scroll-padding-top: 80px; /* ensure fragment jumps account for sticky header */
+}
+
+/* ensure anchored headings are not hidden behind the sticky header */
+h1[id], h2[id], .left-content h1 {
+  scroll-margin-top: 80px;
+}
+
+@media (max-width: 400px) {
+  h1[id], h2[id], .left-content h1 {
+    scroll-margin-top: 110px; /* larger offset when header is taller on small screens */
+  }
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   background: #f8f8f8;
   color: #222;
   text-align: justify;
 }
 
 /* ===========================
-   2. Font Face
+   2. Footer
    =========================== */
-
-
+footer {
+  margin-top: 60px;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+}
 
 /* ===========================
    3. Header & Navigation
@@ -33,47 +66,75 @@ body {
 header {
   background: #111;
   color: white;
-  padding: 20px;
+  padding: 20px 0 10px;
   position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0;
+  width: 100%;
 }
 
 header h1 {
   margin: 0;
   text-transform: lowercase;
+  line-height: 1;
+  font-family: 'Silkscreen', monospace;
 }
 
-nav {
+.desktop-nav {
   display: flex;
   justify-content: center;
-  flex-wrap: nowrap;
-  max-width: 100%;
-  overflow: hidden;
+  margin-top: 5px;
 }
 
-nav a {
+.desktop-nav a {
   color: white;
   text-decoration: none;
   margin: 0 10px;
   font-weight: bold;
-  flex: 1 1 auto;
-  text-align: center;
-  min-width: 0;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Shrink text for small screens */
-@media (max-width: 480px) {
-  nav a { font-size: 0.9em; margin: 0 6px; }
+header h1 a { color: inherit; text-decoration: none; display: inline-block; }
+
+/* Mobile menu */
+.mobile-menu-icon {
+  display: none;
+  font-size: 1.1em;
+  background: #222;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
 }
+
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(17,17,17,0.95);
+  z-index: 2000;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-nav-overlay a {
+  font-size: 1.5em;
+  color: white;
+  text-decoration: none;
+  margin: 15px 0;
+  font-weight: bold;
+}
+
 @media (max-width: 400px) {
-  nav a { font-size: 0.8em; margin: 0 4px; }
-}
-@media (max-width: 300px) {
-  nav a { font-size: 0.7em; margin: 0 2px; }
+  .desktop-nav { display: none; }
+  .mobile-menu-icon { display: block; }
+  html { scroll-padding-top: 110px; }
 }
 
 /* ===========================
@@ -81,12 +142,13 @@ nav a {
    =========================== */
 main {
   max-width: 1100px;
-  margin: 0 auto;      /* remove top/bottom spacing */
-  padding: 30px 20px;  /* smaller top/bottom padding */
+  margin: 0 auto;
+  padding: 20px 20px; /* reduce top padding so Contact aligns like index */
 }
 
 
 h1, h2 {
+  font-family: 'Silkscreen', monospace;
   text-align: left;
   margin: 5px 0;     /* smaller vertical margin */
   padding: 0px 0;    /* smaller vertical padding */
@@ -95,9 +157,21 @@ h1, h2 {
 
 .intro, .left-content p {
   text-align: left;
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto 20px;
+  padding: 0 20px;
   font-size: 1.05em;
+}
+
+/* Make Contact heading align with other section headings */
+.left-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.left-content h1 {
+  margin: -8px 0 0 0; /* nudge heading slightly higher */
+  padding: 0; /* remove extra top and left padding so heading sits more left */
 }
 
 /* ===========================
@@ -175,23 +249,36 @@ footer {
    7. Responsive Adjustments
    =========================== */
 @media (max-width: 671px) {
-  main { padding: 0 10px; }
+  main { padding: 20px 10px; }
   .contact-form { padding: 20px 10px; }
 }
   </style>
 </head>
-<body>
 
-<header>
-  <h1>martindrum</h1>
-  <nav>
-    <a href="https://martindrum.com/#about">about</a>
-    <a href="https://martindrum.com/#music">music</a>
-    <a href="https://martindrum.com/#performances">performances</a>
-    <a href="https://martindrum.com/#creations">creations</a>
-    <a href="https://martindrum.com/contact">contact</a>
-  </nav>
-</header>
+<body id="top">
+  <header>
+    <h1><a href="index.html#top">martindrum</a></h1>
+
+    <nav class="desktop-nav">
+      <a href="index.html#about">about</a>
+      <a href="index.html#music">music</a>
+      <a href="index.html#performances">performances</a>
+      <a href="index.html#creations">creations</a>
+      <a href="software.html">software</a>
+      <a href="contact.html">contact</a>
+    </nav>
+
+    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">Menu</div>
+
+    <div class="mobile-nav-overlay" id="mobileNav">
+      <a href="index.html#about" onclick="closeMobileMenu()">about</a>
+      <a href="index.html#music" onclick="closeMobileMenu()">music</a>
+      <a href="index.html#performances" onclick="closeMobileMenu()">performances</a>
+      <a href="index.html#creations" onclick="closeMobileMenu()">creations</a>
+      <a href="software.html" onclick="closeMobileMenu()">software</a>
+      <a href="contact.html" onclick="closeMobileMenu()">contact</a>
+    </div>
+  </header>
 
 <main>
   <div class="left-content">
@@ -218,10 +305,19 @@ footer {
 </main>
 
 <footer>
-  <p>&copy; 2025 MartinDrum</p>
+  <p>&copy; 2026 MartinDrum</p>
 </footer>
 
 <script>
+function toggleMobileMenu() {
+  const mobileNav = document.getElementById('mobileNav');
+  mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function closeMobileMenu() {
+  document.getElementById('mobileNav').style.display = 'none';
+}
+
 const form = document.getElementById('contactForm');
 const thankYou = document.getElementById('thankYouMsg');
 
