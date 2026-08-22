@@ -274,7 +274,6 @@ footer {
     <a href="software.html">software</a>
     <a href="contact.html">contact</a>
   </nav>
-
   <div class="mobile-menu-icon" onclick="toggleMobileMenu()">Menu</div>
 
   <div class="mobile-nav-overlay" id="mobileNav">
@@ -287,25 +286,10 @@ footer {
   </div>
 </header>
 
-<main>
+  <main>
   <h2>Hover over a number for more info</h2>
 
   <div class="images-wrapper">
-
-    <!-- Mandala V3 -->
-    <div class="image-container">
-      <div class="image-frame">
-        <img src="images/Mandala-V3.png" alt="Mandala V3">
-
-        <div class="point" data-x="300" data-y="200" data-text="This display window shows which note will be played, depending on the scale and range you choose. Behind it is a visualisation of the playing area and the aftertouch.">1</div>
-        <div class="point" data-x="480" data-y="200" data-text="These knobs control the Control Change (CC) values for the area and aftertouch.">2</div>
-        <div class="point" data-x="900" data-y="200" data-text="The scale selector allows you to instantly transpose to another mode.">3</div>
-        <div class="point" data-x="480" data-y="320" data-text="The Map button allows you to control another knob within the Ableton environment. I recommend mapping it to a rack, which can then be assigned to other parameters.">4</div>
-        <div class="point" data-x="900" data-y="320" data-text="This section lets you transpose the pitch root up or down. As a baseline, the Mandala Pad starts on D2.">5</div>
-      </div>
-
-      <div class="info" data-download="https://github.com/Daigledrum/Mandala-V3"></div>
-    </div>
 
     <!-- Clave Generator -->
     <div class="image-container">
@@ -316,8 +300,8 @@ footer {
         <div class="point" data-x="430" data-y="150" data-text="Clave pattern selector">2</div>
         <div class="point" data-x="280" data-y="200" data-text="Displace control">3</div>
         <div class="point" data-x="170" data-y="280" data-text="Midi note and velocity">4</div>
-        <div class="point" data-x="180" data-y="350" data-text="Displace preview(0 1 1 0 1 0 1 0)">5</div>
-        <div class="point" data-x="500" data-y="300" data-text="Rhythm signalvisualizer">6</div>      </div>
+        <div class="point" data-x="180" data-y="350" data-text="Displace preview (0 1 1 0 1 0 1 0)">5</div>
+        <div class="point" data-x="500" data-y="300" data-text="Rhythm signal visualizer">6</div>      </div>
 
       <div class="info" data-download="https://github.com/Daigledrum/Clave-Generator"></div>
     </div>
@@ -342,7 +326,7 @@ footer {
         <img src="images/LeftyKeyboard.png" alt="Lefty Keyboard">
 
         <div class="point" data-x="220" data-y="240" data-text="Keyboard flips symmetrically around D.">1</div>
-        <div class="point" data-x="476" data-y="155" data-text="MIDI monitor showing incoming and outgoingnotes.">2</div>
+        <div class="point" data-x="476" data-y="155" data-text="MIDI monitor showing incoming and outgoing notes.">2</div>
         <div class="point" data-x="100" data-y="335" data-text="While attending the Siena Jazz Symposium, I attended a presentation by Francesca Naebow that challenged improvising musicians to play their instruments flipped upside down. While flipping a grand piano seemed impossible, the idea could be realized easily with a MIDI keyboard. This experiment became the origin story of the device.">3</div>
       </div>
 
@@ -352,6 +336,7 @@ footer {
   </div>
 </main>
 
+<script src="headerTexture.js"></script>
 <script>
 function toggleMobileMenu() {
   const mobileNav = document.getElementById('mobileNav');
@@ -536,7 +521,7 @@ window.addEventListener('load', () => {
 
 </script>
   <footer>
-    <p>&copy; 2026 MartinDrum</p>
+    <p data-i18n="footerCopy">&copy; 2026 MartinDrum</p>
   </footer>
 </body>
 </html>

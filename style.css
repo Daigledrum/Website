@@ -1,0 +1,147 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050816;
+    color: #f5f7ff;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+}
+
+#bg-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 4vw, 2rem) 4rem;
+    text-align: justify;
+    background: transparent;
+    gap: 1.25rem;
+}
+
+.content > * {
+    position: relative;
+    width: min(100%, 72rem);
+}
+
+.content h1 {
+    margin: 0 0 0.75rem;
+    font-family: 'silom';
+    font-size: clamp(1.7rem, 4vw, 3rem);
+    text-shadow: 0 0 24px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+    text-align: center;
+}
+
+.content p {
+    max-width: none;
+    line-height: 1.7;
+    font-size: clamp(0.95rem, 2.3vw, 1.05rem);
+    text-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+    margin: 0 0 1rem;
+}
+
+.content .image-shell {
+    position: relative;
+    display: block;
+    width: min(100%, 72rem);
+    max-width: 100%;
+    margin: 0 0 1.25rem;
+}
+
+.content .image-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: transparent;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.content img,
+.content iframe {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+}
+
+.content img {
+    border-radius: 12px;
+    position: relative;
+    z-index: 0;
+    mix-blend-mode: screen;
+    opacity: 0.96;
+    filter: contrast(1.35) saturate(1.25) brightness(1.08);
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+.image-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.image-row img {
+    width: min(48%, 320px);
+    flex: 1 1 240px;
+    border-radius: 12px;
+    mix-blend-mode: screen;
+    opacity: 0.96;
+    filter: contrast(1.35) saturate(1.25) brightness(1.08);
+}
+
+.content iframe {
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 12px;
+}
+
+@media (max-width: 700px) {
+    .content {
+        align-items: stretch;
+        padding: 1rem 0.9rem 3rem;
+        text-align: left;
+    }
+
+    .content > * {
+        width: 100%;
+    }
+
+    .content h1 {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .content p {
+        font-size: 0.98rem;
+    }
+}

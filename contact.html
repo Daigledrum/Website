@@ -267,7 +267,6 @@ footer {
       <a href="software.html">software</a>
       <a href="contact.html">contact</a>
     </nav>
-
     <div class="mobile-menu-icon" onclick="toggleMobileMenu()">Menu</div>
 
     <div class="mobile-nav-overlay" id="mobileNav">
@@ -304,10 +303,11 @@ footer {
   </div>
 </main>
 
+  <script src="headerTexture.js"></script>
 <footer>
   <p>&copy; 2026 MartinDrum</p>
-</footer>
 
+<script>
 <script>
 function toggleMobileMenu() {
   const mobileNav = document.getElementById('mobileNav');
@@ -317,6 +317,7 @@ function toggleMobileMenu() {
 function closeMobileMenu() {
   document.getElementById('mobileNav').style.display = 'none';
 }
+
 
 const form = document.getElementById('contactForm');
 const thankYou = document.getElementById('thankYouMsg');

@@ -67,6 +67,7 @@ header {
   align-items: center;
   margin: 0;
   width: 100%;
+  isolation: isolate;
 }
 
 header h1 {
@@ -77,6 +78,74 @@ header h1 {
 }
 
 header h1 a { color: inherit; text-decoration: none; display: inline-block; }
+
+header h1,
+header h1 a,
+.desktop-nav a,
+.mobile-menu-icon,
+.mobile-nav-overlay a {
+  mix-blend-mode: difference;
+  color: rgba(236, 244, 255, 0.82);
+  opacity: 1;
+}
+
+header h1 a,
+.desktop-nav a,
+.mobile-menu-icon,
+.mobile-nav-overlay a {
+  position: relative;
+  transition: filter 0.2s ease, text-shadow 0.2s ease;
+}
+
+header h1 a:hover,
+header h1 a:focus-visible,
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible,
+.mobile-menu-icon:hover,
+.mobile-menu-icon:focus-visible,
+.mobile-nav-overlay a:hover,
+.mobile-nav-overlay a:focus-visible {
+  animation: headerGlitchBloom 850ms steps(2, end) infinite;
+  filter: drop-shadow(0 0 7px rgba(120, 245, 255, 0.7)) drop-shadow(0 0 15px rgba(255, 120, 245, 0.45));
+}
+
+@keyframes headerGlitchBloom {
+  0% {
+    text-shadow:
+      0 0 0 rgba(255, 255, 255, 0),
+      0 0 0 rgba(120, 245, 255, 0),
+      0 0 0 rgba(255, 120, 245, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  22% {
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, 0.55),
+      1px 0 7px rgba(120, 245, 255, 0.85),
+      -1px 0 7px rgba(255, 120, 245, 0.8);
+    transform: translate3d(-0.5px, 0, 0);
+  }
+  48% {
+    text-shadow:
+      0 0 8px rgba(255, 255, 255, 0.72),
+      -1.5px 0 10px rgba(120, 245, 255, 0.9),
+      1.5px 0 10px rgba(255, 120, 245, 0.86);
+    transform: translate3d(0.6px, -0.2px, 0);
+  }
+  72% {
+    text-shadow:
+      0 0 6px rgba(255, 255, 255, 0.7),
+      2px 0 12px rgba(120, 245, 255, 0.88),
+      -2px 0 12px rgba(255, 120, 245, 0.86);
+    transform: translate3d(-0.7px, 0.25px, 0);
+  }
+  100% {
+    text-shadow:
+      0 0 9px rgba(255, 255, 255, 0.78),
+      -1px 0 14px rgba(120, 245, 255, 0.95),
+      1px 0 14px rgba(255, 120, 245, 0.9);
+    transform: translate3d(0, 0, 0);
+  }
+}
 
 /* Use Silkscreen for page headings (not nav links) */
 h1, h2 {
@@ -96,7 +165,6 @@ h1, h2 {
 }
 
 .desktop-nav a {
-  color: white;
   text-decoration: none;
   margin: 0 10px;
   font-weight: bold;
@@ -107,7 +175,6 @@ h1, h2 {
   display: none;
   font-size: 1.1em;
   background: #222;
-  color: white;
   padding: 8px 12px;
   border-radius: 5px;
   margin-top: 5px;
@@ -127,7 +194,6 @@ h1, h2 {
 
 .mobile-nav-overlay a {
   font-size: 1.5em;
-  color: white;
   text-decoration: none;
   margin: 15px 0;
   font-weight: bold;
@@ -218,6 +284,12 @@ h2 {
   }
   .main-inner {
     padding: 0 20px;
+  }
+
+  .intro {
+    max-width: none;
+    width: calc(100% + 24px);
+    margin: 0 -12px 32px;
   }
 }
 
@@ -412,7 +484,6 @@ footer {
       <a href="software.html">software</a>
       <a href="contact.html">contact</a>
     </nav>
-
     <div class="mobile-menu-icon" onclick="toggleMobileMenu()">Menu</div>
 
     <div class="mobile-nav-overlay" id="mobileNav">
@@ -429,12 +500,12 @@ footer {
 
       <main>
     <div class="main-inner">
-    <h1 id="about">about </h1>
+    <h1 id="about">about</h1>
     <p class="intro">
       Performer, Composer, and more.
     </p>
-    <p>The 2022 winner of Music NB’s Innovator of the Year Award and recipient of the prestigious Armand Bombardier Scholarship from SSHRC, Martin Daigle is a compelling voice in the performance arts. Emerging from creative foundations as a drummer and percussionist, his work as a performer, composer, and researcher pushes the boundaries of audio-visual and electroacoustic art. Martin’s innovative approach to performance highlights the integration of electronic devices, most notably through his development of an augmented drum kit, which was the focus of his doctoral degree, completed in 2025.</p>
- <p>Martin’s artistry spans genres including rock, jazz, and classical percussion. He has performed at festivals such as Festival de Jazz de Montreal, Festival d’ete de Quebec, Festival des Musiques de Creation, Performing Media Festival, Open Ears Festival, Acadie Rock, and many more.</p>
+    <p>The 2022 winner of Music NB's Innovator of the Year Award and recipient of the prestigious Armand Bombardier Scholarship from SSHRC, Martin Daigle is a compelling voice in the performance arts. Emerging from creative foundations as a drummer and percussionist, his work as a performer, composer, and researcher pushes the boundaries of audio-visual and electroacoustic art. Martin's innovative approach to performance highlights the integration of electronic devices, most notably through his development of an augmented drum kit, which was the focus of his doctoral degree, completed in 2025.</p>
+ <p>Martin's artistry spans genres including rock, jazz, and classical percussion. He has performed at festivals such as Festival de Jazz de Montreal, Festival d'ete de Quebec, Festival des Musiques de Creation, Performing Media Festival, Open Ears Festival, Acadie Rock, and many more.</p>
  <p>In 2021, he released his debut solo album, Mossy Cobblestone. His follow-up album, Drum Machines (2023), further explores technological innovation in percussion performance, solidifying his reputation as a forward-thinking artist in contemporary music.
 </p>
   </div>
@@ -449,7 +520,7 @@ footer {
 			      <a href="https://martindrum.bandcamp.com/album/drum-machines" target="_blank" rel="noopener">
 
         <img src="DrumMachines_Cover_011222.jpg" alt="Drum Machines">
-			  <span class="hover-text">Proceed to the Bandcamp album page</span>
+		  <span class="hover-text">Proceed to the Bandcamp album page</span>
 					    </a>
 </div>
         <div class="text">
@@ -469,7 +540,7 @@ footer {
 			       <a href="https://martindrum.bandcamp.com/album/mossy-cobblestone" target="_blank" rel="noopener">
 
         <img src="Mossy Cobblestone Front.jpg" alt="Mossy Cobblestone">
-			 <span class="hover-text">Proceed to the Bandcamp album page</span>  	
+		 <span class="hover-text">Proceed to the Bandcamp album page</span>   	
 			     </a>
 		  </div> 
         <div class="text">
@@ -502,19 +573,19 @@ footer {
          <iframe width="560" height="315" src="https://www.youtube.com/embed/2KXqug8V1JM?si=nnMJSHoD7drmKSZd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           <div class="text">
             <p><strong>beat</strong>, by Sylvain Pohu</p>
-			  <p>beat is a multimedia piece for augmented drum kit and electronics that explores the abstract meanings of 'beat' through free jazz, noise, and sensory percussion triggers. It creates unique soundscapes in which striking acoustic drums also generates video and electronic sounds, showcasing innovative technology in percussion.</p>
-          </div>
+		  <p>beat is a multimedia piece for augmented drum kit and electronics that explores the abstract meanings of 'beat' through free jazz, noise, and sensory percussion triggers. It creates unique soundscapes in which striking acoustic drums also generates video and electronic sounds, showcasing innovative technology in percussion.</p>
 			
-        </div>
+          </div>
+		</div>
+
+		<!-- Third video: video left, text right -->
 		   <div class="performances-content">
          <iframe width="560" height="315" src="https://www.youtube.com/embed/o4Hra6BLAQM?si=xxwcbDuaqaNOcWk5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           <div class="text">
            <p><strong>La rage,</strong> by PA Tremblay</p>
 <p>Solo for drum kit and electronics</p>
-<p>This 45-minute performance brings the words of Louis Hamelin to life through a musical retelling of his book La rage. Designed for an improvising drummer and an octophonic speaker system, the piece surrounds and disorients the audience, creating an immersive sonic experience. </p>
+<p>This 45-minute performance brings the words of Louis Hamelin to life through a musical retelling of his book La rage. Designed for an improvising drummer and an octophonic speaker system, the piece surrounds and disorients the audience, creating an immersive sonic experience.</p>
 
-        <!-- Third video: video left, text right -->
-       
 
           </div>
         </div>
@@ -547,8 +618,8 @@ footer {
 			<iframe width="560" height="315" src="https://www.youtube.com/embed/9wwyva95orc?si=iA1rsXy0kezEMNAd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 		<div class="text">
           	
-          <p><strong><bold>SextetEmulator,</bold></strong> by Martin Daigle</p>
-			
+<p><strong><bold>SextetEmulator,</bold></strong> by Martin Daigle</p>
+		
 <p>Experimental game piece, performed by Sixtrum at Desautels Concert Hall, University of Manitoba.</p>
 <p>This composition features aleatory processes, random role assignments, and can be performed indefinitely with any combination of instruments.</p>
 
@@ -560,7 +631,7 @@ footer {
         <iframe width="560" height="315" src="https://www.youtube.com/embed/ffoCv55RgHI?si=Q5QxHXa9hvtfGLY7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           <div class="text">
            <p><strong>La grosse game, </strong>by Martin Daigle</p>
-<p>Solo for pecussionist with gestural controllers, performed by Martin Daigle.</p>
+<p>Solo for percussionist with gestural controllers, performed by Martin Daigle.</p>
 <p>This absurd piece requires a performer to theatrically explore the process of falling asleep and navigating their dreams, ultimately missing the entire hockey game they had wanted to see.</p>
 
           </div>
@@ -573,6 +644,7 @@ footer {
     <p>&copy; 2026 MartinDrum</p>
   </footer>
 
+<script src="headerTexture.js"></script>
 <script>
 function toggleMobileMenu() {
   const mobileNav = document.getElementById('mobileNav');
